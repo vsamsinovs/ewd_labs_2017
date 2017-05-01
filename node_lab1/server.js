@@ -1,23 +1,12 @@
-import express from 'express';
-//Add greeting module
-import greeting from './greeting';
-
 import config from './config';
-//create an express app
-const app = express();
-console.log(config)
-// Configure the app to serve up content from public directory
-app.use(express.static('public'));
+import express from 'express';
+import contactsRouter from './api/contacts';
 
-//add route for /greeting
-app.get('/greeting',(req, res)=>{
-  const language = req.headers["accept-language"];
-  const resp_language = greeting[language]?language:'en';
-  res.writeHead(200, {"Content-Type": "text/plain"});
-  res.end(greeting[resp_language]);
+const server = express();
+
+server.use('/api/contacts', contactsRouter);
+server.use(express.static('public'));
+
+server.listen(config.port, config.host, () => {
+  console.info('Express listening on port', config.port);
 });
-
-app.listen(config.port)
-
-// Put a friendly message on the terminal
-console.log("Server running on port " +config.port);
