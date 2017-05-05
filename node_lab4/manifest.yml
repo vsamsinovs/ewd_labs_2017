@@ -1,0 +1,7 @@
+---
+applications:
+- name: vs-enterpriseweb-api
+  buildpack: https://github.com/vsamsinovs/ewd_labs_2017
+  command: npm run startserver
+  disk_quota: 256MB
+  memory: 128MB
